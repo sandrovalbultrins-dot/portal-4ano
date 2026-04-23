@@ -1,1 +1,682 @@
-index.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#185FA5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Portal 4°A">
+<title>Portal Escolar — 4° Ano</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4f8;min-height:100vh;}
+.screen{display:none;}.screen.active{display:block;}
+.lw{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem;}
+.lc{background:#fff;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.12);padding:2rem;width:100%;max-width:380px;}
+.logo{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#185FA5,#0d3d6e);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#fff;font-size:26px;font-weight:700;box-shadow:0 4px 16px rgba(24,95,165,.4);}
+.lt{text-align:center;font-size:20px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
+.ls{text-align:center;font-size:12px;color:#888;margin-bottom:1.5rem;}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem;}
+.rb{padding:14px 8px;border:2px solid #e5e7eb;border-radius:12px;background:#fff;cursor:pointer;text-align:center;color:#888;font-size:12px;font-weight:600;}
+.rb span{font-size:24px;display:block;margin-bottom:5px;}
+.rb.on{border-color:#185FA5;color:#185FA5;background:#EEF2FF;}
+.fg{margin-bottom:14px;}
+.fl{font-size:11px;color:#555;margin-bottom:4px;display:block;font-weight:700;}
+select,input[type=password],input[type=text],input[type=number],textarea{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;color:#222;background:#fff;-webkit-appearance:none;}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#185FA5;}
+.be{width:100%;padding:13px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;box-shadow:0 4px 12px rgba(24,95,165,.3);}
+.be:active{transform:scale(.98);}
+.er{font-size:12px;color:#dc2626;margin-top:10px;text-align:center;min-height:18px;}
+.ht{font-size:11px;color:#aaa;text-align:center;margin-top:14px;}
+.hdr{background:linear-gradient(135deg,#185FA5,#0d3d6e);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.15);}
+.hdr h2{font-size:15px;font-weight:700;}.hdr p{font-size:11px;opacity:.75;margin-top:1px;}
+.bsair{background:rgba(255,255,255,.15);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700;}
+.tabs{display:flex;background:#fff;border-bottom:2px solid #f0f4f8;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:12px 14px;font-size:11px;font-weight:700;color:#aaa;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;flex-shrink:0;}
+.tab.on{color:#185FA5;border-bottom-color:#185FA5;}
+.pn{display:none;padding:16px;}.pn.on{display:block;}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px;}
+@media(max-width:400px){.cards{grid-template-columns:repeat(2,1fr);}}
+.kd{background:#fff;border:1px solid #f0f4f8;border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.kl{font-size:10px;color:#888;margin-bottom:3px;font-weight:600;text-transform:uppercase;}
+.kv{font-size:20px;font-weight:700;color:#1a1a2e;}
+.tw{overflow-x:auto;border:1px solid #e5e7eb;border-radius:14px;margin-bottom:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+table{width:100%;border-collapse:collapse;font-size:11px;}
+th{padding:8px 5px;text-align:center;border-bottom:1px solid #e5e7eb;white-space:nowrap;font-weight:700;color:#555;}
+th.tl{text-align:left;min-width:160px;padding-left:12px;background:#f9fafb;}
+td{padding:6px 3px;text-align:center;border-bottom:1px solid #f3f4f6;color:#222;}
+td.tl{text-align:left;padding-left:12px;font-size:11px;font-weight:600;white-space:nowrap;background:#f9fafb;}
+tr:last-child td{border-bottom:none;}
+input.ni{width:40px;border:none;background:transparent;text-align:center;font-size:11px;color:#222;padding:2px;}
+input.ni:focus{outline:2px solid #185FA5;border-radius:4px;background:#fff;}
+input.fi{width:34px;border:none;background:transparent;text-align:center;font-size:11px;}
+input.fi:focus{outline:2px solid #E11D48;border-radius:4px;background:#fff;}
+textarea.oi{width:130px;border:none;background:transparent;font-size:10px;resize:none;padding:2px;color:#222;}
+textarea.oi:focus{outline:2px solid #185FA5;border-radius:4px;background:#fff;}
+.mv{font-weight:700;}.ap{color:#16a34a;}.rep{color:#dc2626;}.rec{color:#d97706;}
+.sit{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;display:inline-block;}
+.s-ap{background:#dcfce7;color:#166534;}.s-rc{background:#fef9c3;color:#854f0b;}.s-rp{background:#fee2e2;color:#991b1b;}
+.lm{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.lb{font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700;color:#fff;}
+.lg{display:flex;gap:14px;margin-top:10px;font-size:11px;flex-wrap:wrap;}
+.li{display:flex;align-items:center;gap:5px;color:#666;}
+.dt{width:8px;height:8px;border-radius:50%;}
+.sb{padding:12px 16px;background:#f9fafb;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;bottom:0;}
+.bsv{background:#16A34A;color:#fff;border:none;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;}
+.bsv:active{transform:scale(.97);}
+.sm{font-size:12px;}
+.btop{background:linear-gradient(135deg,#185FA5,#0d3d6e);color:#fff;border-radius:16px;padding:1.5rem;margin-bottom:14px;box-shadow:0 4px 20px rgba(24,95,165,.3);}
+.bn{font-size:17px;font-weight:700;}.bi{font-size:12px;opacity:.8;margin-top:3px;}
+.ic{background:#fff;border:1px solid #f0f4f8;border-radius:14px;padding:1.1rem;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.ic h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:10px;}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f3f4f6;font-size:12px;}
+.ir:last-child{border-bottom:none;}
+.irl{color:#888;}.irv{font-weight:700;color:#1a1a2e;}
+.al-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+.al-item{display:flex;align-items:center;gap:8px;font-size:12px;padding:6px;background:#f9fafb;border-radius:8px;}
+.av{width:30px;height:30px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#1d4ed8;flex-shrink:0;}
+.cmp{background:#fff;border:1px solid #f0f4f8;border-radius:14px;padding:1.1rem;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.cmp h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;}
+.bbar{margin-bottom:12px;}
+.blabel{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;font-weight:600;}
+.btrack{height:14px;background:#f3f4f6;border-radius:7px;overflow:hidden;}
+.bfill{height:100%;border-radius:7px;transition:width .6s cubic-bezier(.4,0,.2,1);}
+.pw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;}
+.pw-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;}
+.pw-name{font-size:11px;font-weight:700;color:#1a1a2e;flex:1;}
+input.pw-input{width:90px;border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 8px;font-size:12px;text-align:center;}
+.btn-sm{font-size:11px;padding:6px 14px;border:1.5px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;color:#555;font-weight:700;white-space:nowrap;}
+.btn-sm.green{border-color:#86efac;color:#16a34a;background:#f0fdf4;}
+.btn-sm.danger{border-color:#fca5a5;color:#dc2626;background:#fff5f5;}
+.btn-sm.blue{border-color:#93c5fd;color:#1d4ed8;background:#eff6ff;}
+.btn-sm.wa{border-color:#86efac;color:#16a34a;background:#f0fdf4;}
+.cad-form{background:#fff;border:1px solid #f0f4f8;border-radius:14px;padding:1.25rem;margin-bottom:16px;}
+.cad-form h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:400px){.form-row{grid-template-columns:1fr;}}
+.cad-list{background:#fff;border:1px solid #f0f4f8;border-radius:14px;overflow:hidden;margin-bottom:16px;}
+.cad-list-header{background:#f9fafb;padding:12px 16px;font-size:13px;font-weight:700;border-bottom:1px solid #e5e7eb;color:#1a1a2e;display:flex;justify-content:space-between;align-items:center;}
+.cad-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f3f4f6;}
+.cad-item:last-child{border-bottom:none;}
+.cad-num{font-size:10px;color:#aaa;width:18px;text-align:center;font-weight:700;}
+.cad-name{flex:1;font-size:12px;font-weight:700;color:#1a1a2e;}
+.cad-info{font-size:10px;color:#888;margin-top:1px;}
+.pais-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:16px;}
+.pais-card{background:#fff;border:1px solid #f0f4f8;border-radius:14px;padding:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.pais-card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.pais-nome{font-size:12px;font-weight:700;color:#1a1a2e;flex:1;}
+.pais-media{font-size:18px;font-weight:700;}
+.pais-sit{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:2px;display:inline-block;}
+.pais-btns{display:flex;gap:8px;flex-wrap:wrap;}
+#modal-pais{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;overflow-y:auto;padding:1rem;}
+#modal-pais.show{display:flex;justify-content:center;align-items:flex-start;}
+.modal-box{background:#fff;border-radius:20px;width:100%;max-width:520px;overflow:hidden;margin:auto;}
+.modal-hdr{background:linear-gradient(135deg,#185FA5,#0d3d6e);color:#fff;padding:1.25rem;}
+.modal-hdr h2{font-size:16px;font-weight:700;}.modal-hdr p{font-size:11px;opacity:.8;margin-top:3px;}
+.modal-body{padding:1.25rem;}
+.modal-close{background:#f3f4f6;border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-top:12px;color:#555;}
+.bol-print{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:12px;border:1px solid #e5e7eb;}
+.bol-row{display:flex;justify-content:space-between;padding:7px 14px;border-bottom:1px solid #f3f4f6;font-size:12px;align-items:center;}
+.bol-row:last-child{border-bottom:none;}
+.bol-mat{font-weight:600;color:#1a1a2e;}
+.bol-med{font-weight:700;font-size:13px;}
+.cw{height:260px;position:relative;margin-top:12px;}
+/* STATUS FIREBASE */
+.fb-bar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;margin-bottom:14px;font-size:12px;font-weight:600;}
+.fb-ok{background:#f0fdf4;border:1px solid #86efac;color:#16a34a;}
+.fb-loading{background:#fef9c3;border:1px solid #fcd34d;color:#854f0b;}
+.fb-err{background:#fee2e2;border:1px solid #fca5a5;color:#dc2626;}
+.fb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div id="app">
+<!-- LOGIN -->
+<div id="s-login" class="screen active">
+<div class="lw"><div class="lc">
+  <div class="logo">4A</div>
+  <div class="lt">Portal Escolar</div>
+  <div class="ls">4° Ano — Profa. Valdilene</div>
+  <div id="fb-status-login" class="fb-bar fb-loading" style="margin-bottom:16px">
+    <span class="fb-dot" style="background:#d97706"></span> Conectando ao banco de dados...
+  </div>
+  <div class="rg">
+    <button class="rb on" id="rb-a" onclick="setRole('a')"><span>👤</span>Sou Aluno</button>
+    <button class="rb" id="rb-p" onclick="setRole('p')"><span>📋</span>Professora</button>
+  </div>
+  <div id="fa">
+    <div class="fg"><label class="fl">Selecione seu nome</label><select id="snome"><option value="">— aguardando...</option></select></div>
+    <div class="fg"><label class="fl">Senha</label><input type="password" id="sa" placeholder="Digite sua senha" onkeydown="if(event.key==='Enter')loginA()"></div>
+    <button class="be" onclick="loginA()">Entrar →</button>
+  </div>
+  <div id="fp" style="display:none">
+    <div class="fg"><label class="fl">Senha da professora</label><input type="password" id="sp" placeholder="Digite a senha" onkeydown="if(event.key==='Enter')loginP()"></div>
+    <button class="be" onclick="loginP()">Entrar →</button>
+  </div>
+  <div class="er" id="emsg"></div>
+  <div class="ht">Senha padrão dos alunos: <b>1234</b></div>
+</div></div>
+</div>
+
+<!-- ALUNO -->
+<div id="s-aluno" class="screen">
+  <div class="hdr">
+    <div><h2 id="hna">Aluno</h2><p>4° Ano — Boletim</p></div>
+    <button class="bsair" onclick="logout()">Sair</button>
+  </div>
+  <div class="tabs">
+    <div class="tab on" onclick="swT('a','ab',this)">📊 Boletim</div>
+    <div class="tab" onclick="swT('a','af',this)">📅 Faltas</div>
+    <div class="tab" onclick="swT('a','ac',this)">🔑 Senha</div>
+    <div class="tab" onclick="swT('a','at',this)">🏫 Turma</div>
+  </div>
+  <div id="ab" class="pn on"></div>
+  <div id="af" class="pn"></div>
+  <div id="ac" class="pn"></div>
+  <div id="at" class="pn"></div>
+</div>
+
+<!-- ADMIN -->
+<div id="s-admin" class="screen">
+  <div class="hdr">
+    <div><h2>Profa. Valdilene</h2><p>4° Ano — Painel de Gestão</p></div>
+    <button class="bsair" onclick="logout()">Sair</button>
+  </div>
+  <div class="tabs">
+    <div class="tab on" onclick="swT('d','dn',this)">📝 Notas</div>
+    <div class="tab" onclick="swT('d','df',this)">📅 Faltas</div>
+    <div class="tab" onclick="swT('d','dcd',this)">👥 Cadastro</div>
+    <div class="tab" onclick="swT('d','ds',this)">🔑 Senhas</div>
+    <div class="tab" onclick="swT('d','dp',this)">📤 Boletim Pais</div>
+    <div class="tab" onclick="swT('d','dg',this)">📈 Gráfico</div>
+    <div class="tab" onclick="swT('d','dt',this)">🏫 Turma</div>
+  </div>
+  <div id="dn" class="pn on">
+    <div class="lm" id="dlm"></div>
+    <div style="margin-bottom:10px"><select id="msel" onchange="renderAdm()" style="width:auto;padding:8px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:12px;"><option value="all">Todas as disciplinas</option></select></div>
+    <div class="tw"><table id="tadm"></table></div>
+    <div class="cards" id="dcards"></div>
+    <div class="lg"><span class="li"><span class="dt" style="background:#16a34a"></span>Aprovado ≥ 7,0</span><span class="li"><span class="dt" style="background:#d97706"></span>Recuperação 5,0–6,9</span><span class="li"><span class="dt" style="background:#dc2626"></span>Reprovado &lt; 5,0</span></div>
+  </div>
+  <div id="df" class="pn"><div class="tw" style="margin-top:4px"><table id="tfal"></table></div></div>
+  <div id="dcd" class="pn"></div>
+  <div id="ds" class="pn"></div>
+  <div id="dp" class="pn"></div>
+  <div id="dg" class="pn">
+    <div style="display:flex;gap:8px;align-items:center"><label style="font-size:12px;color:#666;font-weight:600">Ver:</label>
+    <select id="gtp" onchange="renderG()" style="width:auto;padding:8px 14px;border:2px solid #e5e7eb;border-radius:10px;font-size:12px;"><option value="aluno">Média por aluno</option><option value="mat">Média por disciplina</option><option value="sit">Situação da turma</option></select></div>
+    <div class="cw"><canvas id="mchart"></canvas></div>
+  </div>
+  <div id="dt" class="pn"></div>
+  <div class="sb"><button class="bsv" onclick="salvar()">💾 Salvar tudo</button><span class="sm" id="smsg"></span></div>
+</div>
+
+<!-- MODAL BOLETIM PAIS -->
+<div id="modal-pais">
+  <div class="modal-box">
+    <div class="modal-hdr"><h2 id="mp-nome">Boletim</h2><p id="mp-sub">4° Ano • Profa. Valdilene</p></div>
+    <div class="modal-body" id="mp-body"></div>
+    <div style="padding:0 1.25rem 1.25rem;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-sm wa" onclick="enviarWA()" style="padding:10px 16px;font-size:12px">📱 WhatsApp</button>
+      <button class="btn-sm blue" onclick="imprimirBol()" style="padding:10px 16px;font-size:12px">🖨️ Imprimir</button>
+      <button class="btn-sm" onclick="copiarTexto()" style="padding:10px 16px;font-size:12px" id="btn-copiar">📋 Copiar</button>
+      <button class="modal-close" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FIREBASE SDKs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script>
+// ============================================================
+// 🔥 FIREBASE CONFIG
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyBACHyD9kd6cIiL5rx_x_J9GZCOTs-STbE",
+  authDomain: "portal-4ano.firebaseapp.com",
+  databaseURL: "https://portal-4ano-default-rtdb.firebaseio.com",
+  projectId: "portal-4ano",
+  storageBucket: "portal-4ano.firebasestorage.app",
+  messagingSenderId: "692270472330",
+  appId: "1:692270472330:web:2c4619570e962211cf6173"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const refPortal = db.ref('portal4ano');
+// ============================================================
+
+const MT=['Portugues','Historia','Cidadania','Ciencias','Religiao','Geografia','Ingles','Arte','Matematica'];
+const MATNAMES={Portugues:'Português',Historia:'História',Cidadania:'Cidadania',Ciencias:'Ciências',Religiao:'Religião',Geografia:'Geografia',Ingles:'Inglês',Arte:'Arte',Matematica:'Matemática'};
+const BM=['B1','B2','B3','B4'];
+const CR={Portugues:{cell:'#EEF2FF',head:'#4F46E5'},Historia:{cell:'#FFF7ED',head:'#EA6C00'},Cidadania:{cell:'#F0FDF4',head:'#16A34A'},Ciencias:{cell:'#ECFEFF',head:'#0891B2'},Religiao:{cell:'#FDF4FF',head:'#9333EA'},Geografia:{cell:'#FEFCE8',head:'#CA8A04'},Ingles:{cell:'#FFF1F2',head:'#E11D48'},Arte:{cell:'#FFF5F0',head:'#F97316'},Matematica:{cell:'#F0F9FF',head:'#0369A1'}};
+const SPROP='prof2024';
+const GRP={a:['ab','af','ac','at'],d:['dn','df','dcd','ds','dp','dg','dt']};
+const PRENOTAS=[[7.5,9.0,7.5],[9.0,10.0,10.0],[8.0,9.5,7.0],[9.5,10.0,9.0],[7.0,9.0,6.5],[7.0,9.0,7.5],[9.0,10.0,8.0],[8.5,8.5,8.0],[6.5,8.5,7.0],[8.5,8.0,7.5],[9.0,9.5,9.0]];
+
+let D={
+  alunos:['Caio Vinicius Silva Soares','Crislan Victor Santana de Oliveira','Edrian Vinci dos Santos Oliveira','Ellen Maria da Silva','Felipe Gabriel Viana Paiva','Ingrid Sophia dos Santos Albuquerque','Maria Alice Andrade de Santana','Maria Beatriz Azevedo da Silva Santos','Maria Cecília Moreira de Souza','Ronan Rafael dos Santos Cavalcante de Sá','Wallyson Emanoel Lopes Diniz'],
+  n:{},at:{},f:{},o:{},pw:{}
+};
+let CU=null,CI=null,boletimAtivo=null,fbConectado=false;
+
+function setFbStatus(tipo,msg){
+  const el=document.getElementById('fb-status-login');
+  if(!el)return;
+  el.className='fb-bar '+(tipo==='ok'?'fb-ok':tipo==='err'?'fb-err':'fb-loading');
+  const cores={ok:'#16a34a',err:'#dc2626',loading:'#d97706'};
+  el.innerHTML=`<span class="fb-dot" style="background:${cores[tipo]}"></span> ${msg}`;
+}
+
+function initPW(){D.alunos.forEach((_,i)=>{if(!D.pw[i])D.pw[i]='1234';});}
+function preCarregar(){
+  const mps=['Portugues','Historia','Geografia'];
+  PRENOTAS.forEach((ns,i)=>{mps.forEach((m,j)=>{const k=kN(i,m,'B1');if(!D.n[k])D.n[k]=String(ns[j]);});});
+}
+function kN(a,m,b){return `${a}|${m}|${b}`;}
+function kA(a,m){return `at|${a}|${m}`;}
+function gN(a,m,b){return D.n[kN(a,m,b)]??'';}
+function gA(a,m){return D.at[kA(a,m)]??'';}
+function mMat(a,m){
+  const vs=BM.map(b=>parseFloat(gN(a,m,b))).filter(v=>!isNaN(v));
+  const at=parseFloat(gA(a,m));
+  if(!vs.length&&isNaN(at))return null;
+  const mn=vs.length?vs.reduce((s,v)=>s+v,0)/vs.length:null;
+  if(mn!==null&&!isNaN(at))return(mn+at)/2;
+  return mn!==null?mn:at;
+}
+function mG(a){const ms=MT.map(m=>mMat(a,m)).filter(v=>v!==null);return ms.length?ms.reduce((s,v)=>s+v,0)/ms.length:null;}
+function mTurma(){const vs=D.alunos.map((_,i)=>mG(i)).filter(v=>v!==null);return vs.length?vs.reduce((s,v)=>s+v,0)/vs.length:null;}
+function cl(v){if(v===null)return '';if(v>=7)return 'ap';if(v>=5)return 'rec';return 'rep';}
+function sHTML(v){
+  if(v===null)return '<span style="color:#aaa">—</span>';
+  if(v>=7)return '<span class="sit s-ap">Aprovado</span>';
+  if(v>=5)return '<span class="sit s-rc">Recuperação</span>';
+  return '<span class="sit s-rp">Reprovado</span>';
+}
+function sitTxt(v){if(v===null)return '—';if(v>=7)return '✅ Aprovado';if(v>=5)return '⚠️ Recuperação';return '❌ Reprovado';}
+function ini(nm){return nm.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();}
+function fmtDate(){return new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});}
+
+function setRole(r){
+  document.getElementById('fa').style.display=r==='a'?'':'none';
+  document.getElementById('fp').style.display=r==='p'?'':'none';
+  document.getElementById('rb-a').classList.toggle('on',r==='a');
+  document.getElementById('rb-p').classList.toggle('on',r==='p');
+  setE('');
+}
+function setE(m){document.getElementById('emsg').textContent=m;}
+function loginA(){
+  const nm=document.getElementById('snome').value,pw=document.getElementById('sa').value;
+  if(!nm){setE('Selecione seu nome.');return;}
+  const ai=parseInt(nm);
+  if(pw!==D.pw[ai]){setE('Senha incorreta.');return;}
+  CU={role:'a',idx:ai};
+  document.getElementById('hna').textContent=D.alunos[ai];
+  showS('s-aluno');renderBol();renderFaltA();renderTrocaSenha();renderTurA();
+}
+function loginP(){
+  if(document.getElementById('sp').value!==SPROP){setE('Senha incorreta.');return;}
+  CU={role:'p'};showS('s-admin');
+  buildLM();renderAdm();renderFal();renderCadastro();renderSenhas();renderPais();renderTurP();
+}
+function logout(){CU=null;showS('s-login');}
+function showS(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function swT(g,pid,el){
+  el.closest('.tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  GRP[g].forEach(p=>{const e=document.getElementById(p);if(e)e.classList.remove('on');});
+  document.getElementById(pid).classList.add('on');
+  if(pid==='dg')renderG();
+  if(pid==='dcd')renderCadastro();
+  if(pid==='ds')renderSenhas();
+  if(pid==='dp')renderPais();
+}
+
+// ========== BOLETIM ALUNO ==========
+function renderBol(){
+  const ai=CU.idx,mg=mG(ai),mt=mTurma(),nm=D.alunos[ai];
+  const pct=v=>v!==null?Math.min(100,(v/10)*100).toFixed(1):0;
+  let h=`<div class="btop">
+    <div class="bn">${nm}</div>
+    <div class="bi">4° Ano • ${new Date().getFullYear()} • Profa. Valdilene</div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:28px;font-weight:700">${mg!==null?mg.toFixed(1):'—'}</span>
+      <span style="font-size:12px;opacity:.85">média geral</span>
+      ${mg!==null?`<span style="font-size:11px;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:20px;font-weight:700">${mg>=7?'✅ Aprovado':mg>=5?'⚠️ Recuperação':'❌ Reprovado'}</span>`:''}
+    </div></div>
+  <div class="cmp"><h3>📊 Comparativo com a Turma</h3>
+    <div class="bbar"><div class="blabel"><span>Sua média</span><span style="color:${mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#888'}">${mg!==null?mg.toFixed(1):'—'}</span></div>
+    <div class="btrack"><div class="bfill" style="width:${pct(mg)}%;background:${mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#ccc'}"></div></div></div>
+    <div class="bbar"><div class="blabel"><span>Média da turma</span><span style="color:#185FA5">${mt!==null?mt.toFixed(1):'—'}</span></div>
+    <div class="btrack"><div class="bfill" style="width:${pct(mt)}%;background:#185FA5"></div></div></div>
+    ${mg!==null&&mt!==null?`<p style="font-size:12px;color:#555;margin-top:8px">${(mg-mt)>0?`✅ <b>${(mg-mt).toFixed(1)} pontos acima</b> da média da turma`:(mg-mt)<0?`📉 <b>${Math.abs(mg-mt).toFixed(1)} pontos abaixo</b> da média da turma`:`🎯 <b>Na média</b> da turma`}</p>`:''}</div>
+  <div style="margin-bottom:14px"><button class="btn-sm wa" style="padding:10px 18px;font-size:12px" onclick="abrirModalPais(${ai})">📤 Boletim para os pais</button></div>`;
+  h+='<div class="tw"><table><thead><tr><th class="tl">Disciplina</th>';
+  BM.forEach(b=>h+=`<th>${b}</th>`);
+  h+='<th>Ativ</th><th>Média</th><th>Situação</th></tr></thead><tbody>';
+  MT.forEach(m=>{
+    const c=CR[m],mv=mMat(ai,m),av=gA(ai,m);
+    h+=`<tr><td class="tl" style="background:${c.cell}">${MATNAMES[m]}</td>`;
+    BM.forEach(b=>{const nv=gN(ai,m,b);h+=`<td style="background:${c.cell}">${nv!==''?parseFloat(nv).toFixed(1):'—'}</td>`;});
+    h+=`<td style="background:${c.cell}">${av!==''?parseFloat(av).toFixed(1):'—'}</td>`;
+    h+=`<td class="mv ${cl(mv)}" style="background:${c.cell}">${mv!==null?mv.toFixed(1):'—'}</td><td>${sHTML(mv)}</td></tr>`;
+  });
+  h+='</tbody></table></div>';
+  h+=`<div class="lg"><span class="li"><span class="dt" style="background:#16a34a"></span>Aprovado ≥ 7,0</span><span class="li"><span class="dt" style="background:#d97706"></span>Recuperação 5,0–6,9</span><span class="li"><span class="dt" style="background:#dc2626"></span>Reprovado &lt; 5,0</span></div>`;
+  document.getElementById('ab').innerHTML=h;
+}
+function renderFaltA(){
+  const ai=CU.idx;let tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${ai}|${b}`])||0),0);
+  let h=`<div class="ic"><h3>📅 Registro de Faltas</h3><div class="ir"><span class="irl">Total</span><span class="irv" style="color:${tot>15?'#dc2626':tot>8?'#d97706':'#16a34a'}">${tot}</span></div>`;
+  BM.forEach(b=>{const v=parseInt(D.f[`${ai}|${b}`])||0;h+=`<div class="ir"><span class="irl">Faltas ${b}</span><span class="irv">${v}</span></div>`;});
+  h+='</div>';const ob=D.o[ai]||'';
+  if(ob)h+=`<div class="ic"><h3>💬 Observações da Professora</h3><p style="font-size:13px;color:#555;line-height:1.6">${ob}</p></div>`;
+  document.getElementById('af').innerHTML=h;
+}
+function renderTrocaSenha(){
+  const ai=CU.idx;
+  document.getElementById('ac').innerHTML=`<div class="ic"><h3>🔑 Alterar Minha Senha</h3>
+    <div class="fg"><label class="fl">Senha atual</label><input type="password" id="pw-atual"></div>
+    <div class="fg"><label class="fl">Nova senha</label><input type="password" id="pw-nova" placeholder="Mínimo 4 caracteres"></div>
+    <div class="fg"><label class="fl">Confirmar</label><input type="password" id="pw-conf"></div>
+    <button class="be" onclick="trocarSenha(${ai})">Salvar nova senha</button>
+    <div id="pw-msg" style="margin-top:10px;font-size:12px;text-align:center"></div></div>`;
+}
+function trocarSenha(ai){
+  const a=document.getElementById('pw-atual').value,n=document.getElementById('pw-nova').value,c=document.getElementById('pw-conf').value;
+  const msg=document.getElementById('pw-msg');
+  if(a!==D.pw[ai]){msg.style.color='#dc2626';msg.textContent='Senha atual incorreta.';return;}
+  if(n.length<4){msg.style.color='#dc2626';msg.textContent='Mínimo 4 caracteres.';return;}
+  if(n!==c){msg.style.color='#dc2626';msg.textContent='Senhas não coincidem.';return;}
+  D.pw[ai]=n;salvar(true);msg.style.color='#16a34a';msg.textContent='✅ Senha alterada!';
+  ['pw-atual','pw-nova','pw-conf'].forEach(id=>document.getElementById(id).value='');
+}
+function renderTurA(){document.getElementById('at').innerHTML=turHTML();}
+
+// ========== BOLETIM PAIS ==========
+function renderPais(){
+  let h=`<div class="ic" style="background:linear-gradient(135deg,#185FA5,#0d3d6e);border:none;color:#fff;margin-bottom:16px">
+    <h3 style="color:#fff">📤 Boletim para os Pais</h3>
+    <p style="font-size:12px;opacity:.85;margin-top:4px;line-height:1.5">Envie o boletim de cada aluno pelo WhatsApp ou imprima para entregar.</p>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="btn-sm wa" style="padding:10px 18px;font-size:12px" onclick="enviarTodosWA()">📱 Enviar todos via WhatsApp</button>
+    <button class="btn-sm blue" style="padding:10px 18px;font-size:12px" onclick="imprimirTodos()">🖨️ Imprimir todos</button>
+  </div>
+  <div class="pais-grid">`;
+  D.alunos.forEach((nm,i)=>{
+    const mg=mG(i),cor=mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#888';
+    const sitBg=mg!==null?(mg>=7?'#dcfce7':mg>=5?'#fef9c3':'#fee2e2'):'#f3f4f6';
+    const sitCor=mg!==null?(mg>=7?'#166534':mg>=5?'#854f0b':'#991b1b'):'#888';
+    const tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${i}|${b}`])||0),0);
+    h+=`<div class="pais-card"><div class="pais-card-top">
+      <span class="av" style="width:36px;height:36px;font-size:11px">${ini(nm)}</span>
+      <div style="flex:1"><div class="pais-nome">${nm}</div><span class="pais-sit" style="background:${sitBg};color:${sitCor}">${sitTxt(mg)}</span></div>
+      <div style="text-align:right"><div class="pais-media" style="color:${cor}">${mg!==null?mg.toFixed(1):'—'}</div><div style="font-size:10px;color:#888">${tot} falta${tot!==1?'s':''}</div></div>
+    </div>
+    <div class="pais-btns">
+      <button class="btn-sm wa" onclick="abrirModalPais(${i})" style="flex:1;justify-content:center">📄 Ver boletim</button>
+      <button class="btn-sm green" onclick="abrirModalPaisWA(${i})" style="flex:1;justify-content:center">📱 WhatsApp</button>
+    </div></div>`;
+  });
+  h+='</div>';document.getElementById('dp').innerHTML=h;
+}
+function abrirModalPais(ai){
+  boletimAtivo=ai;const nm=D.alunos[ai],mg=mG(ai);
+  document.getElementById('mp-nome').textContent=nm;
+  document.getElementById('mp-sub').textContent=`4° Ano • ${new Date().getFullYear()} • Profa. Valdilene`;
+  const tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${ai}|${b}`])||0),0);
+  const cor=mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#888';
+  let h=`<div style="text-align:center;padding:12px 0 16px">
+    <div style="font-size:36px;font-weight:700;color:${cor}">${mg!==null?mg.toFixed(1):'—'}</div>
+    <div style="font-size:12px;color:#888;margin-top:2px">Média Geral</div>
+    <div style="margin-top:8px">${sHTML(mg)}</div></div>`;
+  h+='<div class="bol-print"><div style="background:#f9fafb;padding:8px 14px;font-size:11px;font-weight:700;color:#555;border-bottom:1px solid #e5e7eb">NOTAS POR DISCIPLINA</div>';
+  MT.forEach(m=>{
+    const mv=mMat(ai,m),c=CR[m];
+    h+=`<div class="bol-row"><div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:${c.head};display:inline-block"></span><span class="bol-mat">${MATNAMES[m]}</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><span class="bol-med" style="color:${mv!==null?(mv>=7?'#16a34a':mv>=5?'#d97706':'#dc2626'):'#888'}">${mv!==null?mv.toFixed(1):'—'}</span>${sHTML(mv)}</div></div>`;
+  });
+  h+='</div>';
+  h+=`<div class="bol-print" style="margin-top:10px"><div style="background:#f9fafb;padding:8px 14px;font-size:11px;font-weight:700;color:#555;border-bottom:1px solid #e5e7eb">FREQUÊNCIA</div>`;
+  BM.forEach(b=>{const v=parseInt(D.f[`${ai}|${b}`])||0;h+=`<div class="bol-row"><span class="bol-mat">Faltas ${b}</span><span style="font-weight:700">${v}</span></div>`;});
+  h+=`<div class="bol-row" style="background:#f9fafb"><span class="bol-mat">Total de faltas</span><span style="font-weight:700;color:${tot>15?'#dc2626':tot>8?'#d97706':'#16a34a'}">${tot}</span></div></div>`;
+  const ob=D.o[ai]||'';
+  if(ob)h+=`<div class="bol-print" style="margin-top:10px"><div style="background:#f9fafb;padding:8px 14px;font-size:11px;font-weight:700;color:#555;border-bottom:1px solid #e5e7eb">OBSERVAÇÕES</div><div class="bol-row" style="font-size:12px;color:#555;line-height:1.5;display:block;padding:10px 14px">${ob}</div></div>`;
+  h+=`<div style="font-size:11px;color:#aaa;text-align:center;margin-top:12px">📅 Emitido em ${fmtDate()} — Portal Escolar 4° Ano</div>`;
+  document.getElementById('mp-body').innerHTML=h;
+  document.getElementById('modal-pais').classList.add('show');
+}
+function abrirModalPaisWA(ai){abrirModalPais(ai);setTimeout(()=>enviarWA(),300);}
+function fecharModal(){document.getElementById('modal-pais').classList.remove('show');boletimAtivo=null;}
+document.getElementById('modal-pais').addEventListener('click',function(e){if(e.target===this)fecharModal();});
+function gerarTextoWA(ai){
+  const nm=D.alunos[ai],mg=mG(ai),tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${ai}|${b}`])||0),0);
+  let txt=`📚 *BOLETIM ESCOLAR — 4° ANO*\n🏫 Escola Municipal\n👩‍🏫 Profa. Valdilene Liliane\n📅 ${fmtDate()}\n\n👤 *Aluno(a):* ${nm}\n📊 *Média Geral:* ${mg!==null?mg.toFixed(1):'—'} — ${sitTxt(mg)}\n\n*📖 NOTAS:*\n`;
+  MT.forEach(m=>{const mv=mMat(ai,m);txt+=`• ${MATNAMES[m]}: *${mv!==null?mv.toFixed(1):'—'}* ${mv!==null?(mv>=7?'✅':mv>=5?'⚠️':'❌'):''}\n`;});
+  txt+=`\n*📅 FALTAS:*\n`;
+  BM.forEach(b=>{txt+=`• ${b}: ${parseInt(D.f[`${ai}|${b}`])||0}\n`;});
+  txt+=`• *Total: ${tot}*\n`;
+  const ob=D.o[ai]||'';if(ob)txt+=`\n*💬 Obs:* ${ob}\n`;
+  txt+=`\n_Portal Escolar 4° Ano_`;
+  return txt;
+}
+function enviarWA(){if(boletimAtivo===null)return;window.open(`https://wa.me/?text=${encodeURIComponent(gerarTextoWA(boletimAtivo))}`,'_blank');}
+function copiarTexto(){
+  if(boletimAtivo===null)return;
+  navigator.clipboard.writeText(gerarTextoWA(boletimAtivo)).then(()=>{
+    const btn=document.getElementById('btn-copiar');btn.textContent='✅ Copiado!';setTimeout(()=>btn.textContent='📋 Copiar',2500);
+  });
+}
+function imprimirBol(){
+  if(boletimAtivo===null)return;const ai=boletimAtivo,nm=D.alunos[ai],mg=mG(ai);
+  const tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${ai}|${b}`])||0),0);
+  const cor=mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#888';
+  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Boletim — ${nm}</title>
+  <style>body{font-family:Arial,sans-serif;margin:20px;color:#222;}.top{background:#185FA5;color:#fff;padding:16px;border-radius:8px;margin-bottom:16px;}
+  table{width:100%;border-collapse:collapse;margin-bottom:16px;}th,td{padding:8px;border:1px solid #ddd;font-size:12px;}th{background:#f5f5f5;text-align:left;}
+  .media{font-size:42px;font-weight:700;color:${cor};text-align:center;margin:12px 0;}</style></head><body>
+  <div class="top"><h2>${nm}</h2><p>4° Ano • Profa. Valdilene • ${fmtDate()}</p></div>
+  <div class="media">${mg!==null?mg.toFixed(1):'—'} — ${sitTxt(mg)}</div>
+  <table><tr><th>Disciplina</th>${BM.map(b=>`<th>${b}</th>`).join('')}<th>Ativ</th><th>Média</th><th>Situação</th></tr>`;
+  MT.forEach(m=>{const mv=mMat(ai,m),av=gA(ai,m);const cor2=mv!==null?(mv>=7?'#16a34a':mv>=5?'#d97706':'#dc2626'):'#888';
+  html+=`<tr><td><b>${MATNAMES[m]}</b></td>${BM.map(b=>{const nv=gN(ai,m,b);return `<td>${nv!==''?parseFloat(nv).toFixed(1):'—'}</td>`;}).join('')}<td>${av!==''?parseFloat(av).toFixed(1):'—'}</td><td style="color:${cor2};font-weight:700">${mv!==null?mv.toFixed(1):'—'}</td><td>${sitTxt(mv)}</td></tr>`;});
+  html+=`</table><h3>Faltas</h3><table><tr>${BM.map(b=>`<th>${b}</th>`).join('')}<th>Total</th></tr>
+  <tr>${BM.map(b=>`<td>${parseInt(D.f[`${ai}|${b}`])||0}</td>`).join('')}<td style="font-weight:700">${tot}</td></tr></table>`;
+  const ob=D.o[ai]||'';if(ob)html+=`<h3>Observações</h3><p style="font-size:12px;color:#555">${ob}</p>`;
+  html+=`<script>window.onload=()=>window.print();<\/script></body></html>`;
+  const w=window.open('','_blank');w.document.write(html);w.document.close();
+}
+function enviarTodosWA(){
+  let txt=`📚 *BOLETIM DA TURMA — 4° ANO*\n👩‍🏫 Profa. Valdilene • ${fmtDate()}\n\n`;
+  D.alunos.forEach((nm,i)=>{const mg=mG(i);txt+=`👤 ${nm}\n   Média: *${mg!==null?mg.toFixed(1):'—'}* — ${sitTxt(mg)}\n\n`;});
+  window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`,'_blank');
+}
+function imprimirTodos(){
+  let html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;margin:10px;font-size:11px;}.al{page-break-after:always;padding:12px;border:2px solid #185FA5;border-radius:8px;margin-bottom:16px;}.top{background:#185FA5;color:#fff;padding:10px;border-radius:6px;margin-bottom:10px;}table{width:100%;border-collapse:collapse;}th,td{padding:5px;border:1px solid #ddd;font-size:10px;}th{background:#f5f5f5;text-align:left;}</style></head><body>`;
+  D.alunos.forEach((nm,i)=>{const mg=mG(i),tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${i}|${b}`])||0),0);const cor=mg!==null?(mg>=7?'#16a34a':mg>=5?'#d97706':'#dc2626'):'#888';
+  html+=`<div class="al"><div class="top"><b>${nm}</b> — 4° Ano • Profa. Valdilene • ${fmtDate()}</div>
+  <p><b>Média Geral:</b> <span style="color:${cor};font-size:16px;font-weight:700">${mg!==null?mg.toFixed(1):'—'}</span> — ${sitTxt(mg)}</p>
+  <table><tr><th>Disciplina</th><th>Média</th><th>Situação</th></tr>`;
+  MT.forEach(m=>{const mv=mMat(i,m);const cor2=mv!==null?(mv>=7?'#16a34a':mv>=5?'#d97706':'#dc2626'):'#888';html+=`<tr><td>${MATNAMES[m]}</td><td style="color:${cor2};font-weight:700">${mv!==null?mv.toFixed(1):'—'}</td><td>${sitTxt(mv)}</td></tr>`;});
+  html+=`</table><p style="margin-top:8px"><b>Total de faltas:</b> ${tot}</p></div>`;});
+  html+=`<script>window.onload=()=>window.print();<\/script></body></html>`;
+  const w=window.open('','_blank');w.document.write(html);w.document.close();
+}
+
+// ========== CADASTRO ==========
+function renderCadastro(){
+  let h=`<div class="cad-form"><h3>➕ Adicionar Novo Aluno</h3>
+    <div class="form-row">
+      <div class="fg" style="margin:0"><label class="fl">Nome completo</label><input type="text" id="cad-nome" placeholder="Nome completo"></div>
+      <div class="fg" style="margin:0"><label class="fl">Senha inicial</label><input type="text" id="cad-pw" value="1234"></div>
+    </div>
+    <button class="btn-sm green" style="margin-top:10px;padding:10px 20px;font-size:12px" onclick="addAluno()">✅ Adicionar</button>
+    <div id="cad-msg" style="margin-top:8px;font-size:12px;min-height:16px"></div>
+  </div>
+  <div class="cad-list">
+    <div class="cad-list-header"><span>👥 Alunos (${D.alunos.length})</span></div>`;
+  D.alunos.forEach((nm,i)=>{const mg=mG(i);
+  h+=`<div class="cad-item"><span class="cad-num">${i+1}</span><span class="av">${ini(nm)}</span>
+    <div style="flex:1"><div class="cad-name">${nm}</div><div class="cad-info">Senha: ${D.pw[i]||'1234'} • ${mg!==null?mg.toFixed(1)+' média':'sem notas'}</div></div>
+    <button class="btn-sm" style="margin-right:4px" onclick="editarAluno(${i})">✏️</button>
+    <button class="btn-sm danger" onclick="removerAluno(${i})">🗑️</button>
+  </div>`;});
+  h+='</div>';document.getElementById('dcd').innerHTML=h;
+}
+function addAluno(){
+  const nome=document.getElementById('cad-nome').value.trim(),pw=document.getElementById('cad-pw').value.trim()||'1234';
+  const msg=document.getElementById('cad-msg');
+  if(nome.length<3){msg.style.color='#dc2626';msg.textContent='Digite o nome completo.';return;}
+  const ni=D.alunos.length;D.alunos.push(nome);D.pw[ni]=pw;
+  salvar(true);atualizarSelectLogin();
+  msg.style.color='#16a34a';msg.textContent=`✅ ${nome} adicionado!`;
+  document.getElementById('cad-nome').value='';document.getElementById('cad-pw').value='1234';
+  setTimeout(()=>renderCadastro(),1200);
+}
+function editarAluno(i){
+  const novo=prompt(`Nome atual:\n${D.alunos[i]}\n\nNovo nome:`);
+  if(!novo||!novo.trim())return;
+  D.alunos[i]=novo.trim();salvar(true);atualizarSelectLogin();renderCadastro();
+}
+function removerAluno(i){
+  if(!confirm(`Remover "${D.alunos[i]}"?`))return;
+  D.alunos.splice(i,1);
+  const nn={},na={},nf={},np={},no={};
+  D.alunos.forEach((_,ni)=>{const oi=ni>=i?ni+1:ni;MT.forEach(m=>{BM.forEach(b=>{const v=D.n[kN(oi,m,b)];if(v!==undefined)nn[kN(ni,m,b)]=v;});const va=D.at[kA(oi,m)];if(va!==undefined)na[kA(ni,m)]=va;});BM.forEach(b=>{const v=D.f[`${oi}|${b}`];if(v!==undefined)nf[`${ni}|${b}`]=v;});if(D.pw[oi])np[ni]=D.pw[oi];if(D.o[oi])no[ni]=D.o[oi];});
+  D.n=nn;D.at=na;D.f=nf;D.pw=np;D.o=no;
+  salvar(true);atualizarSelectLogin();renderCadastro();renderAdm();renderFal();
+}
+function atualizarSelectLogin(){
+  const sel=document.getElementById('snome');
+  sel.innerHTML='<option value="">— escolha —</option>';
+  D.alunos.forEach((a,i)=>{const o=document.createElement('option');o.value=i;o.textContent=a;sel.appendChild(o);});
+}
+
+// ========== SENHAS ==========
+function renderSenhas(){
+  let h=`<div class="ic"><h3>🔑 Gerenciar Senhas</h3><p style="font-size:12px;color:#666;margin-bottom:14px">Edite e salve individualmente.</p><div class="pw-grid">`;
+  D.alunos.forEach((nm,i)=>{h+=`<div class="pw-card"><span class="av">${ini(nm)}</span><span class="pw-name">${nm.split(' ')[0]} ${nm.split(' ')[1]}</span><input class="pw-input" type="text" id="pwv-${i}" value="${D.pw[i]||'1234'}"><button class="btn-sm green" onclick="redefinirSenha(${i})">OK</button></div>`;});
+  h+=`</div><div style="margin-top:14px"><button class="btn-sm" onclick="resetarTodas()">🔄 Resetar todas para 1234</button></div></div>`;
+  document.getElementById('ds').innerHTML=h;
+}
+function redefinirSenha(i){
+  const val=document.getElementById(`pwv-${i}`).value;
+  if(!val||val.length<4){alert('Mínimo 4 caracteres.');return;}
+  D.pw[i]=val;salvar(true);
+  const btn=document.querySelector(`#pwv-${i}`).nextElementSibling;btn.textContent='✅';setTimeout(()=>btn.textContent='OK',2000);
+}
+function resetarTodas(){
+  if(!confirm('Resetar TODAS para 1234?'))return;
+  D.alunos.forEach((_,i)=>{D.pw[i]='1234';const el=document.getElementById(`pwv-${i}`);if(el)el.value='1234';});
+  salvar(true);
+}
+
+// ========== NOTAS ADMIN ==========
+function buildLM(){document.getElementById('dlm').innerHTML=MT.map(m=>`<span class="lb" style="background:${CR[m].head}">${MATNAMES[m]}</span>`).join('');}
+function renderAdm(){
+  const sel=document.getElementById('msel');
+  if(sel.options.length===1)MT.forEach(m=>{let o=document.createElement('option');o.value=m;o.textContent=MATNAMES[m];sel.appendChild(o);});
+  const ms=sel.value==='all'?MT:[sel.value];
+  let h='<thead><tr><th class="tl" rowspan="2">Aluno</th>';
+  ms.forEach(m=>{const c=CR[m];h+=`<th colspan="5" style="background:${c.head};color:#fff;border-left:2px solid rgba(255,255,255,.25)">${MATNAMES[m]}</th>`;});
+  h+='<th rowspan="2" style="background:#374151;color:#fff;min-width:48px">Méd<br>Geral</th><th rowspan="2" style="background:#374151;color:#fff;min-width:70px">Situação</th></tr><tr>';
+  ms.forEach(m=>{const c=CR[m];BM.forEach(b=>h+=`<th style="background:${c.cell};color:#555;font-size:10px">${b}</th>`);h+=`<th style="background:${c.cell};color:#555;font-size:10px">Ativ</th><th style="background:${c.cell};color:#555;font-size:10px;border-left:1px solid rgba(0,0,0,.08)">Méd</th>`;});
+  h+='</tr></thead><tbody>';
+  D.alunos.forEach((nm,i)=>{
+    h+=`<tr><td class="tl">${nm}</td>`;
+    ms.forEach(m=>{const c=CR[m];BM.forEach(b=>{const v=gN(i,m,b);h+=`<td style="background:${c.cell}"><input class="ni" type="number" min="0" max="10" step="0.1" value="${v}" oninput="D.n[kN(${i},'${m}','${b}')]=this.value;updCards()"></td>`;});
+    const va=gA(i,m);h+=`<td style="background:${c.cell}"><input class="ni" type="number" min="0" max="10" step="0.1" value="${va}" oninput="D.at[kA(${i},'${m}')]=this.value;updCards()"></td>`;
+    const mv=mMat(i,m);h+=`<td class="mv ${cl(mv)}" style="background:${c.cell};border-left:1px solid rgba(0,0,0,.08)">${mv!==null?mv.toFixed(1):'—'}</td>`;});
+    const mg=mG(i);h+=`<td class="mv ${cl(mg)}" style="background:#f9fafb">${mg!==null?mg.toFixed(1):'—'}</td><td style="background:#f9fafb">${sHTML(mg)}</td></tr>`;
+  });
+  h+='</tbody>';document.getElementById('tadm').innerHTML=h;updCards();
+}
+function updCards(){
+  const tots=D.alunos.map((_,i)=>mG(i)),com=tots.filter(v=>v!==null);
+  const ap=com.filter(v=>v>=7).length,rc=com.filter(v=>v>=5&&v<7).length,rp=com.filter(v=>v<5).length;
+  const tm=com.length?(com.reduce((s,v)=>s+v,0)/com.length).toFixed(1):'—';
+  const el=document.getElementById('dcards');
+  if(el)el.innerHTML=`<div class="kd"><div class="kl">Média turma</div><div class="kv">${tm}</div></div>
+    <div class="kd"><div class="kl">Aprovados</div><div class="kv" style="color:#16a34a">${ap}</div></div>
+    <div class="kd"><div class="kl">Recuperação</div><div class="kv" style="color:#d97706">${rc}</div></div>
+    <div class="kd"><div class="kl">Reprovados</div><div class="kv" style="color:#dc2626">${rp}</div></div>`;
+}
+function renderFal(){
+  let h='<thead><tr><th class="tl" style="background:#f9fafb">Aluno</th>';
+  BM.forEach(b=>h+=`<th style="background:#f9fafb">Faltas ${b}</th>`);
+  h+='<th style="background:#f9fafb">Total</th><th style="background:#f9fafb;min-width:150px">Observações</th></tr></thead><tbody>';
+  D.alunos.forEach((nm,i)=>{h+=`<tr><td class="tl">${nm}</td>`;let tot=0;
+  BM.forEach(b=>{const v=D.f[`${i}|${b}`]??'';tot+=parseInt(v)||0;h+=`<td><input class="fi" type="number" min="0" value="${v}" oninput="D.f['${i}|${b}']=this.value;updTF(${i})"></td>`;});
+  h+=`<td id="tf${i}" style="font-weight:700;color:${tot>15?'#dc2626':tot>8?'#d97706':'#16a34a'}">${tot}</td>`;
+  const ob=D.o[i]??'';h+=`<td><textarea class="oi" rows="2" oninput="D.o[${i}]=this.value">${ob}</textarea></td></tr>`;});
+  h+='</tbody>';document.getElementById('tfal').innerHTML=h;
+}
+function updTF(i){const tot=BM.reduce((s,b)=>s+(parseInt(D.f[`${i}|${b}`])||0),0);const el=document.getElementById('tf'+i);if(el){el.textContent=tot;el.style.color=tot>15?'#dc2626':tot>8?'#d97706':'#16a34a';}}
+function renderG(){
+  if(CI){CI.destroy();CI=null;}
+  const tp=document.getElementById('gtp').value,ctx=document.getElementById('mchart');let cfg={};
+  if(tp==='aluno'){const d2=D.alunos.map((_,i)=>{const v=mG(i);return v!==null?parseFloat(v.toFixed(1)):0;});cfg={type:'bar',data:{labels:D.alunos.map(a=>a.split(' ')[0]),datasets:[{label:'Média',data:d2,backgroundColor:d2.map(v=>v>=7?'#16a34a':v>=5?'#d97706':'#dc2626'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:10,ticks:{stepSize:1}}}}};}
+  else if(tp==='mat'){const d2=MT.map(m=>{const vs=D.alunos.map((_,i)=>mMat(i,m)).filter(v=>v!==null);return vs.length?parseFloat((vs.reduce((s,v)=>s+v,0)/vs.length).toFixed(1)):0;});cfg={type:'bar',data:{labels:MT.map(m=>MATNAMES[m]),datasets:[{label:'Média',data:d2,backgroundColor:MT.map(m=>CR[m].head),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:10,ticks:{stepSize:1}}}}};}
+  else{const tots=D.alunos.map((_,i)=>mG(i));const ap=tots.filter(v=>v!==null&&v>=7).length,rc=tots.filter(v=>v!==null&&v>=5&&v<7).length,rp=tots.filter(v=>v!==null&&v<5).length,sm=tots.filter(v=>v===null).length;cfg={type:'doughnut',data:{labels:['Aprovados','Recuperação','Reprovados','Sem notas'],datasets:[{data:[ap,rc,rp,sm],backgroundColor:['#16a34a','#d97706','#dc2626','#e5e7eb'],borderWidth:3,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}};}
+  CI=new Chart(ctx,cfg);
+}
+function turHTML(){
+  let h=`<div class="ic"><h3>🏫 Informações da Turma</h3>
+    <div class="ir"><span class="irl">Série</span><span class="irv">4° Ano — Ensino Fundamental</span></div>
+    <div class="ir"><span class="irl">Professora</span><span class="irv">Valdilene Liliane Silva dos Santos</span></div>
+    <div class="ir"><span class="irl">Total de alunos</span><span class="irv">${D.alunos.length}</span></div>
+    <div class="ir"><span class="irl">Ano letivo</span><span class="irv">${new Date().getFullYear()}</span></div>
+    <div class="ir"><span class="irl">Aprovação</span><span class="irv" style="color:#16a34a">Média ≥ 7,0</span></div>
+  </div><div class="ic"><h3>👥 Alunos</h3><ul class="al-list">`;
+  D.alunos.forEach(a=>{h+=`<li class="al-item"><span class="av">${ini(a)}</span>${a}</li>`;});
+  h+=`</ul></div><div class="ic"><h3>📚 Disciplinas</h3><div class="lm">`;
+  MT.forEach(m=>h+=`<span class="lb" style="background:${CR[m].head}">${MATNAMES[m]}</span>`);
+  h+='</div></div>';return h;
+}
+function renderTurP(){document.getElementById('dt').innerHTML=turHTML();}
+
+// ========== SALVAR NO FIREBASE ==========
+async function salvar(silencioso=false){
+  const msg=document.getElementById('smsg');
+  if(!silencioso){msg.style.color='#888';msg.textContent='Salvando...';}
+  try{
+    await refPortal.set(D);
+    if(!silencioso){msg.style.color='#16a34a';msg.textContent='✅ Salvo na nuvem!';setTimeout(()=>msg.textContent='',3000);}
+  }catch(e){
+    if(!silencioso){msg.style.color='#dc2626';msg.textContent='Erro ao salvar: '+e.message;setTimeout(()=>msg.textContent='',4000);}
+  }
+}
+
+// ========== CARREGAR DO FIREBASE EM TEMPO REAL ==========
+function init(){
+  setFbStatus('loading','Conectando ao banco de dados...');
+  refPortal.on('value', snap=>{
+    const val=snap.val();
+    if(val&&val.alunos){
+      D=val;
+      // garantir pw para novos alunos
+      D.alunos.forEach((_,i)=>{if(!D.pw[i])D.pw[i]='1234';});
+    } else {
+      // Primeiro acesso — salvar dados padrão
+      initPW();preCarregar();
+      refPortal.set(D);
+    }
+    fbConectado=true;
+    setFbStatus('ok','🔥 Conectado ao Firebase — dados em tempo real');
+    atualizarSelectLogin();
+    // Se aluno estiver logado, atualiza boletim automaticamente
+    if(CU&&CU.role==='a'){renderBol();renderFaltA();}
+  }, err=>{
+    setFbStatus('err','❌ Erro de conexão: '+err.message);
+  });
+}
+init();
+</script>
+</body>
+</html>
