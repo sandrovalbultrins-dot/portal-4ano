@@ -289,7 +289,7 @@ function mMat(a,m){
   if(mn!==null&&!isNaN(at))return(mn+at)/2;
   return mn!==null?mn:at;
 }
-function mG(a){const ms=MT.map(m=>mMat(a,m)).filter(v=>v!==null);return ms.length?ms.reduce((s,v)=>s+v,0)/ms.length:null;}
+function mG(a){try{const ms=MT.map(m=>mMat(a,m)).filter(v=>v!==null);return ms.length?ms.reduce((s,v)=>s+v,0)/ms.length:null;}catch(e){return null;}}
 function mTurma(){const vs=D.alunos.map((_,i)=>mG(i)).filter(v=>v!==null);return vs.length?vs.reduce((s,v)=>s+v,0)/vs.length:null;}
 function cl(v){if(v===null)return '';if(v>=7)return 'ap';if(v>=5)return 'rec';return 'rep';}
 function sHTML(v){
@@ -311,13 +311,20 @@ function setRole(r){
 }
 function setE(m){document.getElementById('emsg').textContent=m;}
 function loginA(){
-  const nm=document.getElementById('snome').value,pw=document.getElementById('sa').value;
-  if(!nm){setE('Selecione seu nome.');return;}
-  const ai=parseInt(nm);
-  if(pw!==D.pw[ai]){setE('Senha incorreta.');return;}
-  CU={role:'a',idx:ai};
-  document.getElementById('hna').textContent=D.alunos[ai];
-  showS('s-aluno');renderBol();renderFaltA();renderTrocaSenha();renderTurA();
+  try{
+    const nm=document.getElementById('snome').value,pw=document.getElementById('sa').value;
+    if(!nm){setE('Selecione seu nome.');return;}
+    const ai=parseInt(nm);
+    if(!D.alunos||!D.alunos[ai]){setE('Dados ainda carregando. Aguarde.');return;}
+    if(pw!==(D.pw[ai]||'1234')){setE('Senha incorreta.');return;}
+    CU={role:'a',idx:ai};
+    document.getElementById('hna').textContent=D.alunos[ai];
+    showS('s-aluno');
+    try{renderBol();}catch(e){console.log('renderBol:',e);}
+    try{renderFaltA();}catch(e){console.log('renderFaltA:',e);}
+    try{renderTrocaSenha();}catch(e){console.log('renderTrocaSenha:',e);}
+    try{renderTurA();}catch(e){console.log('renderTurA:',e);}
+  }catch(e){setE('Erro ao entrar. Tente novamente.');}
 }
 function loginP(){
   if(document.getElementById('sp').value!==SPROP){setE('Senha incorreta.');return;}
